@@ -1,2 +1,2 @@
 # atcoder-pypy-docker
-AtCoder用PYPY Docker環境
+AtCoder用PyPy Docker環境
