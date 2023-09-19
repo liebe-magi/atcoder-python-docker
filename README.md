@@ -10,6 +10,14 @@ AtCoder用Python Docker環境
 
 ## Installation
 
+### Install from DockerHub
+
+```
+docker pull liebemagi/atcoder-python:latest
+```
+
+### Build
+
 ```
 git clone https://github.com/liebe-magi/atcoder-python-docker
 cd atcoder-python-docker
