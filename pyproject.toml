@@ -48,7 +48,7 @@ cppyy = "2.4.1"
     args = [
         { name = "contestID", positional = true, required = true},
         { name = "taskID", positional = true, required = true},
-        { name = "interpreter", positional = true, required = true, default="pypy"},
+        { name = "interpreter", positional = true, default="pypy"},
     ]
     cmd = "python scripts/submit.py ${contestID} ${taskID} ${interpreter}"
     [tool.poe.tasks.s]
@@ -56,7 +56,7 @@ cppyy = "2.4.1"
     args = [
         { name = "contestID", positional = true, required = true},
         { name = "taskID", positional = true, required = true},
-        { name = "interpreter", positional = true, required = true, default="pypy"},
+        { name = "interpreter", positional = true, default="pypy"},
     ]
     cmd = "python scripts/submit.py ${contestID} ${taskID} ${interpreter}"
 
