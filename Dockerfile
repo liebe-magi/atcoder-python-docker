@@ -1,16 +1,19 @@
 # Python
 FROM python:3.11.4-slim-bookworm as python
 
+ARG TARGETARCH
+
 # Install packages
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y git build-essential --no-install-recommends
 
 # Install online-judge-tools
-RUN python -m pip install online-judge-tools
+RUN python -m pip install --upgrade pip && \
+    python -m pip install online-judge-tools
 
 # Install Python packages
-COPY ./requirements.txt ./requirements.txt
+COPY ./requirements_${TARGETARCH}.txt ./requirements.txt
 RUN python -m pip install -r requirements.txt
 
 # Node.js
