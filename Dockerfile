@@ -6,7 +6,7 @@ ARG TARGETARCH
 # Install packages
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y git build-essential --no-install-recommends
+    apt-get install -y git build-essential libgmp-dev libmpfr-dev libmpc-dev --no-install-recommends
 
 # Install online-judge-tools
 RUN python -m pip install --upgrade pip && \
