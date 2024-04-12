@@ -1,19 +1,20 @@
 # Python
-FROM python:3.11.4-slim-bookworm as python
+FROM pypy:3.10-7.3.12-slim-bookworm as python
 
 ARG TARGETARCH
 
 # Install packages
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y git build-essential libgmp-dev libmpfr-dev libmpc-dev --no-install-recommends
+    apt-get install -y git build-essential gfortran pkg-config cmake \
+    libopenblas-dev libgeos-dev --no-install-recommends
 
 # Install online-judge-tools
 RUN python -m pip install --upgrade pip && \
     python -m pip install online-judge-tools
 
 # Install Python packages
-COPY ./requirements_${TARGETARCH}.txt ./requirements.txt
+COPY ./docker_pypy/requirements_${TARGETARCH}.txt ./requirements.txt
 RUN python -m pip install -r requirements.txt
 
 # Node.js
@@ -29,10 +30,9 @@ LABEL maintainer "liebe_magi"
 WORKDIR /work
 
 # Copy from Python
-COPY --from=python /usr/local/include /usr/local/include
-COPY --from=python /usr/local/lib /usr/local/lib
-COPY --from=python /usr/local/bin /usr/local/bin
-
+COPY --from=python /opt/pypy/include /usr/local/include
+COPY --from=python /opt/pypy/lib /usr/local/lib
+COPY --from=python /opt/pypy/bin /usr/local/bin
 
 # Copy from Node.js
 COPY --from=node /usr/local/include /usr/local/include
