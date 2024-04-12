@@ -30,9 +30,9 @@ LABEL maintainer "liebe_magi"
 WORKDIR /work
 
 # Copy from Python
-COPY --from=python /opt/pypy/include /usr/local/include
-COPY --from=python /opt/pypy/lib /usr/local/lib
-COPY --from=python /opt/pypy/bin /usr/local/bin
+COPY --from=python /opt/pypy/include /opt/pypy/include
+COPY --from=python /opt/pypy/lib /opt/pypy/lib
+COPY --from=python /opt/pypy/bin /opt/pypy/bin
 
 # Copy from Node.js
 COPY --from=node /usr/local/include /usr/local/include
@@ -40,6 +40,7 @@ COPY --from=node /usr/local/lib /usr/local/lib
 COPY --from=node /usr/local/bin /usr/local/bin
 
 COPY ./scripts ./scripts
+ENV PATH "/opt/pypy/bin:${PATH}"
 
 # Install packages
 RUN apt-get update && \
