@@ -33,6 +33,9 @@ WORKDIR /work
 COPY --from=python /opt/pypy/include /opt/pypy/include
 COPY --from=python /opt/pypy/lib /opt/pypy/lib
 COPY --from=python /opt/pypy/bin /opt/pypy/bin
+COPY --from=python /usr/local/include /usr/local/include
+COPY --from=python /usr/local/lib /usr/local/lib
+COPY --from=python /usr/local/bin /usr/local/bin
 
 # Copy from Node.js
 COPY --from=node /usr/local/include /usr/local/include
