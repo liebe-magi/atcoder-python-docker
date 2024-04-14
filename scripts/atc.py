@@ -1,9 +1,12 @@
 import json
+import os
 import subprocess
 import sys
 
+use_pypy = os.environ.get("PYPY", False)
+
 subcommands = ["new", "run"]
-flags = ["-s", "--submit", "--pypy"]
+flags = ["-s", "--submit", "--pypy", "--cpython"]
 
 if len(sys.argv) == 1:
     print("Usage: atc [subcommand] [contest or problem id] [flag]")
@@ -49,15 +52,33 @@ else:
                 print("Error: Invalid flag")
                 print("Flag must be one of the following: [-s, --submit, --pypy]")
                 exit()
+        if "--cpython" in flag and "--pypy" in flag:
+            print("Error: --cpython and --pypy cannot be used together")
+            exit()
+        if "--cpython" not in flag and "--pypy" not in flag:
+            if use_pypy:
+                flag.append("--pypy")
+            else:
+                flag.append("--cpython")
         if "--submit" not in flag:
-            cmd = [
-                "oj",
-                "test",
-                "-d",
-                f"contents/{contest_id}/{task_id}/tests",
-                "-c",
-                f"python contents/{contest_id}/{task_id}/main.py",
-            ]
+            if "--cpython" in flag:
+                cmd = [
+                    "oj",
+                    "test",
+                    "-d",
+                    f"contents/{contest_id}/{task_id}/tests",
+                    "-c",
+                    f"python3.11 contents/{contest_id}/{task_id}/main.py",
+                ]
+            else:
+                cmd = [
+                    "oj",
+                    "test",
+                    "-d",
+                    f"contents/{contest_id}/{task_id}/tests",
+                    "-c",
+                    f"pypy3 contents/{contest_id}/{task_id}/main.py",
+                ]
             subprocess.run(cmd)
         else:
             info = json.load(open(f"contents/{contest_id}/contest.acc.json", "r"))
@@ -73,13 +94,13 @@ else:
                 exit()
             else:
                 cmd = f"acc submit -c {contest_id} -t {data['id']} "
-                if "--pypy" in flag:
+                if "--cpython" in flag:
                     cmd += (
-                        f"contents/{contest_id}/{task_id}/main.py -- --no-guess -l 5078"
+                        f"contents/{contest_id}/{task_id}/main.py -- --no-guess -l 5055"
                     )
                 else:
                     cmd += (
-                        f"contents/{contest_id}/{task_id}/main.py -- --no-guess -l 5055"
+                        f"contents/{contest_id}/{task_id}/main.py -- --no-guess -l 5078"
                     )
 
                 subprocess.run(cmd.split(" "))
