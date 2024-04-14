@@ -45,7 +45,7 @@ COPY ./scripts ./scripts
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y git build-essential gfortran pkg-config cmake time \
-    libopenblas-dev libgeos-dev curl ca-certificates fish --no-install-recommends && \
+    libopenblas-dev libgeos-dev curl ca-certificates fish silversearcher-ag --no-install-recommends && \
     curl -sS https://starship.rs/install.sh | sh -s -- --yes && \
     apt-get autoremove && \
     apt-get autoclean && \
