@@ -13,7 +13,7 @@ RUN python -m pip install --upgrade pip && \
     python -m pip install online-judge-tools
 
 # Install Python packages
-COPY ./docker_cpython/requirements_${TARGETARCH}.txt ./requirements.txt
+COPY ./config_cpython/requirements_${TARGETARCH}.txt ./requirements.txt
 RUN python -m pip install -r requirements.txt
 
 # Node.js
@@ -53,7 +53,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Python packages
-COPY ./docker_pypy/requirements_${TARGETARCH}.txt ./requirements.txt
+COPY ./config_pypy/requirements_${TARGETARCH}.txt ./requirements.txt
 RUN python -m pip install --upgrade pip && \
     python -m pip install -r requirements.txt && \
     rm requirements.txt

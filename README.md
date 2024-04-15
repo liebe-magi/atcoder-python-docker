@@ -14,14 +14,8 @@ AtCoder用Python Docker環境
 
 ### Install from DockerHub
 
-#### CPython
 ```
 docker pull liebemagi/atcoder-python:latest
-```
-
-#### PyPy
-```
-docker pull liebemagi/atcoder-python:latest-pypy
 ```
 
 ### Build
@@ -29,12 +23,7 @@ docker pull liebemagi/atcoder-python:latest-pypy
 ```
 git clone https://github.com/liebe-magi/atcoder-python-docker
 cd atcoder-python-docker
-
-# CPython
-docker build -t atcoder-python -f docker_cpython/Dockerfile .
-
-# PyPy
-docker build -t atcoder-python -f docker_pypy/Dockerfile .
+docker build -t atcoder-python .
 ```
 
 ## Usage
@@ -53,6 +42,12 @@ atc new abc001
 
 ```
 atc run abc001-a
+
+# PyPyでテストする場合
+atc run abc001-a --pypy
+
+# 環境変数で指定することも可
+PYPY=true atc run abc001-a
 ```
 #### Submit a code
 
